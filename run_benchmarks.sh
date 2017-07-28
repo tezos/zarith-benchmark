@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+MIN_NUM="0"
+MAX_NUM="115792089237316195423570985008687907853269984665640564039457584007913129639935"
+# Creates 20 numbers
+BINOP_STEP="5789604461865809771178549250434395392663499233282028201972879200395656481996"
+UNOP_STEP="289480223093290488558927462521719769633174961664101410098643960019782824099"
+BENCHMARK=./zarith
+OUT_DIR=benchmarks/
+BINOP_ARGS="-randomness 100000000 -min ${MIN_NUM} -max ${MAX_NUM} -step ${BINOP_STEP} -duration 10"
+UNOP_ARGS="-randomness 100000000 -min ${MIN_NUM} -max ${MAX_NUM} -step ${UNOP_STEP} -duration 10"
+
+mkdir -p ${OUT_DIR}
+
+# Binary operations
+${BENCHMARK} ${OUT_DIR}/Z.add -binop "Z.add" ${BINOP_ARGS}
+${BENCHMARK} ${OUT_DIR}/Z.sub -binop "Z.sub" ${BINOP_ARGS}
+${BENCHMARK} ${OUT_DIR}/Z.mul -binop "Z.mul" ${BINOP_ARGS}
+${BENCHMARK} ${OUT_DIR}/Z.ediv_rem -binop "Z.ediv_rem" ${BINOP_ARGS}
+${BENCHMARK} ${OUT_DIR}/Z.logor -binop "Z.logor" ${BINOP_ARGS}
+${BENCHMARK} ${OUT_DIR}/Z.logxor -binop "Z.logxor" ${BINOP_ARGS}
+${BENCHMARK} ${OUT_DIR}/Z.logand -binop "Z.logand" ${BINOP_ARGS}
+
+# Unary operations
+${BENCHMARK} ${OUT_DIR}/Z.abs -unop "Z.abs" ${BINOP_ARGS}
+${BENCHMARK} ${OUT_DIR}/Z.neg -unop "Z.neg" ${BINOP_ARGS}
